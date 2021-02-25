@@ -19,8 +19,7 @@ bot.hears('/humoresque@Skozu19_bot', async (ctx) => {
     await ctx.reply(await getDoubleHumoresque());
 })
 
-bot.hears('(((', ((ctx) => {
-    console.log('triggered');
+bot.on('text', ((ctx) => {
     const message = ctx.message.text;
     const leftSide = message.indexOf('(((');
     const rightSide = message.indexOf(')))');
