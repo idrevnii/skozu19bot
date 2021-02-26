@@ -1,7 +1,7 @@
 require('dotenv').config();
 const {Telegraf} = require('telegraf');
 const {getHebrew} = require("./hebrewReply");
-const {getDoubleHumoresque} = require("./humoresqueScrapper");
+const {getDoubleHumoresque, getNewDoubleHumoresque} = require("./humoresqueScrapper");
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
@@ -17,6 +17,10 @@ tg.callApi('getUpdates', {offset: -1})
 
 bot.hears('/humoresque@Skozu19_bot', async (ctx) => {
     await ctx.reply(await getDoubleHumoresque());
+})
+
+bot.hears('/newhumoresque@Skozu19_bot', async (ctx) => {
+    await ctx.reply(await getNewDoubleHumoresque());
 })
 
 bot.on('text', ((ctx) => {

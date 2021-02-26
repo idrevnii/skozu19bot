@@ -30,6 +30,13 @@ async function getDoubleHumoresque() {
     return first.slice(0, first.length / 2).concat(second.slice(second.length / 2)).join(' ');
 }
 
+async function getNewDoubleHumoresque() {
+    const first = (await getHumoresque()).split(' ');
+    const second = (await getHumoresque()).split(' ');
+    return first.slice(0, (first.length / 10 * 7)).concat(second.slice(second.length / 10 * 3)).join(' ');
+}
+
 module.exports = {
     getDoubleHumoresque,
+    getNewDoubleHumoresque,
 }
