@@ -37,7 +37,7 @@ async function getDoubleHumoresque() {
 }
 
 async function getCustomHumoresque(firstPart, secondPart) {
-    if (typeof firstPart === 'number' && typeof  secondPart === 'number' && firstPart > 0 && firstPart < 11 && secondPart > 0 && secondPart < 11) {
+    if (typeof firstPart === 'number' && typeof  secondPart === 'number' && firstPart > 0 && firstPart < 101 && secondPart > 0 && secondPart < 101) {
         const first = (await getHumoresque()).split(' ');
         const second = (await getHumoresque()).split(' ');
         return first.slice(0, (first.length / 100 * firstPart)).concat(second.slice(second.length / 100 * secondPart)).join(' ');
