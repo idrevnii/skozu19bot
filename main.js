@@ -18,7 +18,7 @@ tg.callApi('getUpdates', {offset: -1})
 bot.command('customhumoresque@Skozu19_bot',async (ctx) => {
     const args = getArgument(ctx.message.text).split(' ');
     if (args.length === 2) {
-        const humoresque = await getCustomHumoresque(Math.floor(parseInt(args[0]) / 10), Math.floor(parseInt(args[1]) / 10));
+        const humoresque = await getCustomHumoresque(Math.floor(parseInt(args[0])), Math.floor(parseInt(args[1])));
         if (humoresque) {
             await ctx.reply(humoresque);
         } else {

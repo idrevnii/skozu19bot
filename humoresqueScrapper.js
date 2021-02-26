@@ -40,7 +40,7 @@ async function getCustomHumoresque(firstPart, secondPart) {
     if (typeof firstPart === 'number' && typeof  secondPart === 'number' && firstPart > 0 && firstPart < 11 && secondPart > 0 && secondPart < 11) {
         const first = (await getHumoresque()).split(' ');
         const second = (await getHumoresque()).split(' ');
-        return first.slice(0, (first.length / 10 * firstPart)).concat(second.slice(second.length / 10 * secondPart)).join(' ');
+        return first.slice(0, (first.length / 100 * firstPart)).concat(second.slice(second.length / 100 * secondPart)).join(' ');
     } else {
         return 'Wrong ratio!';
     }
