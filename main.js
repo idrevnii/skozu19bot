@@ -2,7 +2,7 @@ require('dotenv').config();
 const {Telegraf} = require('telegraf');
 const {getArgument} = require("./utility");
 const {getHebrew} = require("./hebrewReply");
-const {getDoubleHumoresque, getCustomHumoresque} = require("./humoresqueScrapper");
+const {getCustomHumoresque} = require("./humoresqueScrapper");
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
