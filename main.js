@@ -15,26 +15,22 @@ tg.callApi('getUpdates', {offset: -1})
     .then(() => console.info('The bot is launched'))
     .catch((err) => console.error(err));
 
-bot.command('customhumoresque@Skozu19_bot',async (ctx) => {
+bot.command('humoresque@Skozu19_bot',async (ctx) => {
     const args = getArgument(ctx.message.text).split(' ');
-    if (args.length === 2) {
-        const humoresque = await getCustomHumoresque(Math.floor(parseInt(args[0])), Math.floor(parseInt(args[1])));
-        if (humoresque) {
-            await ctx.reply(humoresque);
-        } else {
-            await ctx.reply('Stop trolling me!');
-        }
+    if (args.length === 1 && args[0] === '/humoresque@Skozu19_bot') {
+        await ctx.reply(await getCustomHumoresque(50, 50));
     } else {
-        await ctx.reply('Are you mad?');
+        if (args.length === 2) {
+            const humoresque = await getCustomHumoresque(Math.floor(parseInt(args[0])), Math.floor(parseInt(args[1])));
+            if (humoresque) {
+                await ctx.reply(humoresque);
+            } else {
+                await ctx.reply('Stop trolling me!');
+            }
+        } else {
+            await ctx.reply('Are you mad?');
+        }
     }
-})
-
-bot.command('humoresque@Skozu19_bot', async (ctx) => {
-    await ctx.reply(await getDoubleHumoresque());
-})
-
-bot.command('newhumoresque@Skozu19_bot', async (ctx) => {
-    await ctx.reply(await getCustomHumoresque(7, 3));
 })
 
 bot.on('text', ((ctx) => {
