@@ -3,6 +3,7 @@ const {Telegraf} = require('telegraf');
 const {getArgument} = require("./utility");
 const {getHebrew} = require("./hebrewReply");
 const {getCustomHumoresque} = require("./humoresqueScrapper");
+const {getShabbatDay} = require("./whenShabbat");
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
@@ -31,6 +32,10 @@ bot.command('humoresque@Skozu19_bot',async (ctx) => {
             await ctx.reply('Are you mad?');
         }
     }
+})
+
+bot.command('shabbat@Skozu19_bot', async (ctx) => {
+    await ctx.reply(getShabbatDay());
 })
 
 bot.on('text', ((ctx) => {
