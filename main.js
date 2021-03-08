@@ -38,12 +38,18 @@ bot.command('shabbat@Skozu19_bot', async (ctx) => {
     await ctx.reply(getShabbatDay());
 })
 
-bot.on('text', ((ctx) => {
+bot.on('text', (async (ctx) => {
     const message = ctx.message.text;
+
     const leftSide = message.indexOf('(((');
     const rightSide = message.indexOf(')))');
     if (leftSide !== -1 && rightSide !== -1) {
-        ctx.reply(message.slice(0, leftSide) + getHebrew((rightSide) - (leftSide + 3)) + message.slice(rightSide + 3));
+        await ctx.reply(message.slice(0, leftSide) + getHebrew((rightSide) - (leftSide + 3)) + message.slice(rightSide + 3));
+    }
+
+    const isShabbat = message.toLowerCase().indexOf('шаббат');
+    if (isShabbat !== -1) {
+        await ctx.reply(getShabbatDay());
     }
 
 }))
