@@ -1,5 +1,6 @@
 require('dotenv').config();
 const {Telegraf} = require('telegraf');
+const emoji = require('node-emoji');
 const {getArgument, isAdministrator} = require("./utility");
 const {getHebrew} = require("./hebrewReply");
 const {getCustomHumoresque} = require("./humoresqueScrapper");
@@ -41,7 +42,7 @@ bot.command('shabbat@Skozu19_bot', async (ctx) => {
 
 bot.command('juden@Skozu19_bot', async (ctx) => {
     const isAdmin = await isAdministrator(ctx, ctx.from);
-    if (isAdmin) {
+    if (isAdmin && ctx.message.reply_to_message.from) {
         addMarked(ctx.message.reply_to_message.from);
         await ctx.reply('User now Jew!');
     }
@@ -49,7 +50,7 @@ bot.command('juden@Skozu19_bot', async (ctx) => {
 
 bot.command('reabilitate@Skozu19_bot', async (ctx) => {
     const isAdmin = await isAdministrator(ctx, ctx.from);
-    if (isAdmin) {
+    if (isAdmin && ctx.message.reply_to_message.from) {
         removeMarked(ctx.message.reply_to_message.from);
         await ctx.reply('User now not a Jew!');
     }
@@ -76,5 +77,10 @@ bot.on('text', (async (ctx) => {
         await ctx.reply(getHebrew(ctx.message.text.length), {reply_to_message_id: ctx.update.message.message_id});
     }
 
+    const isZieg = emoji.which(ctx.message.text);
+    if (isZieg === 'man-raising-hand') {
+        await ctx.reply('/song@vkmusic_bot');
+        await ctx.reply('reichsmusikkammer');
+    }
 
 }))
