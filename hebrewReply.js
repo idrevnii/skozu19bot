@@ -12,13 +12,15 @@ function getAlphabet(o) {
     return result;
 }
 
-function getHebrew(count) {
+function getHebrew(words) {
     const alphabet = getAlphabet(letters);
-    let result = '';
-    for (let i = 0; i !== count; i += 1) {
-        result = `${result}${alphabet[getRandomNumber(0, 16)]}`;
-    }
-    return result;
+    return words.split(' ').map((word) => {
+        let result = '';
+        for (let i = 0; i !== word.length; i += 1) {
+            result = `${result}${alphabet[getRandomNumber(0, 16)]}`;
+        }
+        return result;
+    }).join(' ');
 }
 
 module.exports = {

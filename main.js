@@ -1,6 +1,5 @@
 require('dotenv').config();
 const {Telegraf} = require('telegraf');
-const emoji = require('node-emoji');
 const {getArgument, isAdministrator} = require("./utility");
 const {getHebrew} = require("./hebrewReply");
 const {getCustomHumoresque} = require("./humoresqueScrapper");
@@ -63,7 +62,7 @@ bot.on('text', (async (ctx) => {
     const leftSide = message.indexOf('(((');
     const rightSide = message.indexOf(')))');
     if (leftSide !== -1 && rightSide !== -1) {
-        await ctx.reply(message.slice(0, leftSide) + getHebrew((rightSide) - (leftSide + 3)) + message.slice(rightSide + 3));
+        await ctx.reply(message.slice(0, leftSide) + getHebrew(message.slice(leftSide + 3, rightSide)) + message.slice(rightSide + 3));
     }
 
     const isShabbat = message.toLowerCase().indexOf('шаббат');
@@ -74,13 +73,7 @@ bot.on('text', (async (ctx) => {
     const isMark = isMarked(ctx.from)
     if (isMark) {
         console.log(ctx);
-        await ctx.reply(getHebrew(ctx.message.text.length), {reply_to_message_id: ctx.update.message.message_id});
-    }
-
-    const isZieg = emoji.which(ctx.message.text);
-    if (isZieg === 'man-raising-hand') {
-        await ctx.reply('/song@vkmusic_bot');
-        await ctx.reply('reichsmusikkammer');
+        await ctx.reply(getHebrew(ctx.message.text), {reply_to_message_id: ctx.update.message.message_id});
     }
 
 }))
