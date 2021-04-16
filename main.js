@@ -43,7 +43,7 @@ bot.on('text', (async (ctx) => {
 
     const leftSide = message.indexOf('(((');
     const rightSide = message.indexOf(')))');
-    if (leftSide !== -1 && rightSide !== -1) {
+    if (leftSide !== -1 && rightSide !== -1 && rightSide - leftSide !== 0) {
         await ctx.reply(message.slice(0, leftSide) + getHebrew((rightSide) - (leftSide + 3)) + message.slice(rightSide + 3));
     }
 
