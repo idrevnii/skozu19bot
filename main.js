@@ -59,9 +59,9 @@ bot.command('reabilitate@Skozu19_bot', async (ctx) => {
 bot.on('text', (async (ctx) => {
     const message = ctx.message.text;
 
-    const leftSide = message.indexOf('(((');
+    const leftSide = message.lastIndexOf('(((') + 3;
     const rightSide = message.indexOf(')))');
-    if (leftSide !== -1 && rightSide !== -1 && rightSide - leftSide !== 0 && rightSide - (leftSide + 3) !== 0) {
+    if (leftSide !== -1 && rightSide !== -1 && rightSide - leftSide !== 0) {
         await ctx.reply(message.slice(0, leftSide) + getHebrew((rightSide) - (leftSide + 3)) + message.slice(rightSide + 3));
     }
 
