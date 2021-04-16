@@ -1,9 +1,10 @@
 require('dotenv').config();
 const {Telegraf} = require('telegraf');
-const {getArgument} = require("./utility");
+const {getArgument, isAdministrator} = require("./utility");
 const {getHebrew} = require("./hebrewReply");
 const {getCustomHumoresque} = require("./humoresqueScrapper");
 const {getShabbatDay} = require("./whenShabbat");
+const {addMarked, removeMarked, isMarked} = require("./markJew");
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
@@ -36,7 +37,24 @@ bot.command('humoresque@Skozu19_bot',async (ctx) => {
 
 bot.command('shabbat@Skozu19_bot', async (ctx) => {
     await ctx.reply(getShabbatDay());
-})
+});
+
+bot.command('juden@Skozu19_bot', async (ctx) => {
+    const isAdmin = await isAdministrator(ctx, ctx.from);
+    if (isAdmin && ctx.message.reply_to_message.from) {
+        addMarked(ctx.message.reply_to_message.from);
+        await ctx.reply('User now Jew!');
+    }
+});
+
+bot.command('reabilitate@Skozu19_bot', async (ctx) => {
+    const isAdmin = await isAdministrator(ctx, ctx.from);
+    if (isAdmin && ctx.message.reply_to_message.from) {
+        removeMarked(ctx.message.reply_to_message.from);
+        await ctx.reply('User now not a Jew!');
+    }
+});
+
 
 bot.on('text', (async (ctx) => {
     const message = ctx.message.text;
@@ -50,6 +68,12 @@ bot.on('text', (async (ctx) => {
     const isShabbat = message.toLowerCase().indexOf('шаббат');
     if (isShabbat !== -1) {
         await ctx.reply(getShabbatDay());
+    }
+
+    const isMark = isMarked(ctx.from)
+    if (isMark) {
+        console.log(ctx);
+        await ctx.reply(getHebrew(ctx.message.text), {reply_to_message_id: ctx.update.message.message_id});
     }
 
 }))
